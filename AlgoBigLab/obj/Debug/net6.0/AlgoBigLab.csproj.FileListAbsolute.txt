@@ -1,0 +1,17 @@
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\bin\Debug\net6.0\AlgoBigLab.exe
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\bin\Debug\net6.0\AlgoBigLab.deps.json
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\bin\Debug\net6.0\AlgoBigLab.runtimeconfig.json
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\bin\Debug\net6.0\AlgoBigLab.dll
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\bin\Debug\net6.0\AlgoBigLab.pdb
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\obj\Debug\net6.0\AlgoBigLab.csproj.AssemblyReference.cache
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\obj\Debug\net6.0\Interop.Microsoft.Office.Interop.Excel.dll
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\obj\Debug\net6.0\AlgoBigLab.csproj.ResolveComReference.cache
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\obj\Debug\net6.0\AlgoBigLab.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\obj\Debug\net6.0\AlgoBigLab.AssemblyInfoInputs.cache
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\obj\Debug\net6.0\AlgoBigLab.AssemblyInfo.cs
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\obj\Debug\net6.0\AlgoBigLab.csproj.CoreCompileInputs.cache
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\obj\Debug\net6.0\AlgoBigLab.dll
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\obj\Debug\net6.0\refint\AlgoBigLab.dll
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\obj\Debug\net6.0\AlgoBigLab.pdb
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\obj\Debug\net6.0\AlgoBigLab.genruntimeconfig.cache
+C:\Users\XJIE6yIIIEK\source\repos\AlgoBigLab\AlgoBigLab\obj\Debug\net6.0\ref\AlgoBigLab.dll
