@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\XJIE6yIIIEK\\source\\repos\\AlgoBigLab\\AlgoBigLab\\AlgoBigLab.csproj": {}
+    "C:\\Users\\Reapka\\source\\repos\\AlgorithmLab\\AlgoBigLab\\AlgoBigLab.csproj": {}
   },
   "projects": {
-    "C:\\Users\\XJIE6yIIIEK\\source\\repos\\AlgoBigLab\\AlgoBigLab\\AlgoBigLab.csproj": {
+    "C:\\Users\\Reapka\\source\\repos\\AlgorithmLab\\AlgoBigLab\\AlgoBigLab.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\XJIE6yIIIEK\\source\\repos\\AlgoBigLab\\AlgoBigLab\\AlgoBigLab.csproj",
+        "projectUniqueName": "C:\\Users\\Reapka\\source\\repos\\AlgorithmLab\\AlgoBigLab\\AlgoBigLab.csproj",
         "projectName": "AlgoBigLab",
-        "projectPath": "C:\\Users\\XJIE6yIIIEK\\source\\repos\\AlgoBigLab\\AlgoBigLab\\AlgoBigLab.csproj",
-        "packagesPath": "C:\\Users\\XJIE6yIIIEK\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\XJIE6yIIIEK\\source\\repos\\AlgoBigLab\\AlgoBigLab\\obj\\",
+        "projectPath": "C:\\Users\\Reapka\\source\\repos\\AlgorithmLab\\AlgoBigLab\\AlgoBigLab.csproj",
+        "packagesPath": "C:\\Users\\Reapka\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Reapka\\source\\repos\\AlgorithmLab\\AlgoBigLab\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\XJIE6yIIIEK\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Reapka\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -58,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

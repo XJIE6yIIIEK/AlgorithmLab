@@ -8,23 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\XJIE6yIIIEK\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Reapka\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\XJIE6yIIIEK\\source\\repos\\AlgoBigLab\\AlgoBigLab\\AlgoBigLab.csproj",
+      "projectUniqueName": "C:\\Users\\Reapka\\Source\\Repos\\AlgorithmLab\\AlgoBigLab\\AlgoBigLab.csproj",
       "projectName": "AlgoBigLab",
-      "projectPath": "C:\\Users\\XJIE6yIIIEK\\source\\repos\\AlgoBigLab\\AlgoBigLab\\AlgoBigLab.csproj",
-      "packagesPath": "C:\\Users\\XJIE6yIIIEK\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\XJIE6yIIIEK\\source\\repos\\AlgoBigLab\\AlgoBigLab\\obj\\",
+      "projectPath": "C:\\Users\\Reapka\\Source\\Repos\\AlgorithmLab\\AlgoBigLab\\AlgoBigLab.csproj",
+      "packagesPath": "C:\\Users\\Reapka\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Reapka\\Source\\Repos\\AlgorithmLab\\AlgoBigLab\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\XJIE6yIIIEK\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Reapka\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -65,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
