@@ -1,4 +1,5 @@
 ﻿using Matrices;
+using System.Diagnostics;
 
 namespace AlgoBigLab {
     /// <summary>
@@ -86,32 +87,29 @@ namespace AlgoBigLab {
             }
         }
 
-        static private TimeSpan OneTest(Matrix A, Matrix B, Methods method) {
+        static private long OneTest(Matrix A, Matrix B, Methods method) {
             Matrix _;
-            DateTime start = DateTime.Now;
-            DateTime end = DateTime.Now;
-            TimeSpan ts;
+            Stopwatch stopwatch = new Stopwatch();
 
             switch (method) {
                 case Methods.Trivial:
-                    start = DateTime.Now;
+                    stopwatch.Start();
                     _ = A * B;
-                    end = DateTime.Now;
+                    stopwatch.Stop();
                     break;
                 case Methods.Strassen:
-                    start = DateTime.Now;
+                    stopwatch.Start();
                     _ = Matrix.Strassen(A, B, false);
-                    end = DateTime.Now;
+                    stopwatch.Stop();
                     break;
                 case Methods.StrassenOptimized:
-                    start = DateTime.Now;
+                    stopwatch.Start();
                     _ = Matrix.Strassen(A, B, true);
-                    end = DateTime.Now;
+                    stopwatch.Stop();
                     break;
             }
-            ts = end - start;
 
-            return ts;
+            return stopwatch.ElapsedMilliseconds;
         }
         
         /// <summary>
@@ -128,9 +126,9 @@ namespace AlgoBigLab {
 
             for (int n = startV; ; n += step) {
                 GenerateTest(n, ref A, ref B);
-                TimeSpan ts = OneTest(A, B, method);
-                Console.WriteLine(n.ToString() + ": " + ts.ToString());
-                if (ts.Minutes > 2) {
+                long time = OneTest(A, B, method);
+                Console.WriteLine(n.ToString() + ": " + time.ToString());
+                if (time > 120000) {
                     return n;
                 }
             }
@@ -143,16 +141,16 @@ namespace AlgoBigLab {
         /// <param name="tests">Количество тестов.</param>
         /// <param name="method">Меотод enum Tester.Methods</param>
         /// <returns></returns>
-        static public TimeSpan AverageTime(int n, int tests, Methods method) {
+        static public long AverageTime(int n, int tests, Methods method) {
             Matrix A = null;
             Matrix B = null;
-            TimeSpan ts = TimeSpan.Zero;
+            long time = 0;
             for (int j = 0; j < tests; j++) {
                 GenerateTest(n, ref A, ref B);
-                ts += OneTest(A, B, method);
+                time += OneTest(A, B, method);
             }
-            ts /= tests;
-            return ts;
+            time /= tests;
+            return time;
         }
 
         /// <summary>
@@ -162,12 +160,12 @@ namespace AlgoBigLab {
         /// <param name="method">Меотод enum Tester.Methods</param>
         /// <param name="tests">Количество тестов.</param>
         /// <returns></returns>
-        static public Dictionary<int, TimeSpan> SerialExperiments(int[] V, Methods method, int tests) {
+        static public Dictionary<int, long> SerialExperiments(int[] V, Methods method, int tests) {
             
-            Dictionary<int, TimeSpan> times = new Dictionary<int, TimeSpan>();
+            Dictionary<int, long> times = new Dictionary<int, long>();
             for (int i = 0; i < V.Length; i++) {
-                TimeSpan ts = AverageTime(V[i], tests, method);
-                times.Add(V[i], ts);
+                long time = AverageTime(V[i], tests, method);
+                times.Add(V[i], time);
             }
             return times;
         }
