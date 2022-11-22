@@ -20,7 +20,7 @@ class Program {
 4) Штрассена - без создания классов
 5) Штрассена - оптимизированный - без создания классов
 >>>");
-        int methodAnswer = Convert.ToInt32(Console.Read()) - 1;
+        int methodAnswer = Convert.ToInt32(Console.ReadLine()) - 1;
         if (methodAnswer < 1 || methodAnswer > 5) {
             Console.WriteLine("Ошибка: неизвестный метод.");
             return;
