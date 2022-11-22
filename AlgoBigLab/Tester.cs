@@ -9,7 +9,6 @@ namespace AlgoBigLab {
     /// </summary>
     static internal class Tester {
         const int rndAbsMax = 1000;
-        static private StreamReader? inputStream;
 
         /// <summary>
         /// Генерация матрицы со случайными значениями.
@@ -44,17 +43,10 @@ namespace AlgoBigLab {
         /// </summary>
         /// <param name="A">Переменная для первой матрицы.</param>
         /// <param name="B">Переменная для второй матрицы.</param>
-        static public void ReadTest(ref Matrix? A, ref Matrix? B) {
-            if (inputStream == null) {
-                Console.Write("Введите путь до файла: ");
-                string path = Console.ReadLine();
-
-                inputStream = new StreamReader(path);
-            }
+        static public void ReadTest(ref Matrix? A, ref Matrix? B, string path) {
+            StreamReader inputStream = new StreamReader(path);
             string line;
-            while ((line = inputStream.ReadLine()) != null && line == "") ;
-            if (!inputStream.EndOfStream) {
-                
+            if ((line = inputStream.ReadLine()) != null) {
                 int n = Convert.ToInt32(line);
                 A = new Matrix(n, n);
                 B = new Matrix(n, n);
@@ -78,12 +70,10 @@ namespace AlgoBigLab {
                     }
                 }
             }
-            if (inputStream.EndOfStream) {
-                inputStream.Close();
-            }
+            inputStream.Close();
         }
 
-        static private long OneTest(Matrix A, Matrix B, Methods method) {
+        static public long OneTest(Matrix A, Matrix B, Methods method) {
             Matrix _;
             Stopwatch stopwatch = new Stopwatch();
 
