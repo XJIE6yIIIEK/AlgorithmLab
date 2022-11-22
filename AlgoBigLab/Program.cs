@@ -5,11 +5,9 @@ using IOModule;
 
 class Program {
 	public static void Main(string[] args) {
-        int vmax = Tester.FindVMax(Tester.Methods.Strassen, 50, 500);
-        Console.WriteLine("Vmax = " + vmax.ToString());
+		int maxTime = 2 * 60 * 1000;
+		IOModule.IOModule io = new IOModule.IOModule();
 
-
-
-        //Trivial - 1500
-    }
+		Tester.TestSeries(50, 50, maxTime, 3, io);
+	}
 }

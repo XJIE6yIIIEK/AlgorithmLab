@@ -5,25 +5,17 @@ namespace Matrices {
 	/// Матричный класс
 	/// </summary>
 	internal class Matrix {
-		private protected int[,] matrix;			//Матрица значений
+		public int[,] matrix;			//Матрица значений
 
 		private protected int rows;					//Строки
 		private protected int cols;					//Столбцы
 
 		public int this[int n, int m] {
 			get {
-				if(n >= rows || m >= cols || n < 0 || m < 0) {
-					throw new Exception("Out of array");
-				}
-
 				return matrix[n, m];
 			}
 
 			set {
-				if(n >= rows || m >= cols || n < 0 || m < 0) {
-					throw new Exception("Out of array");
-				}
-
 				matrix[n, m] = value;
 			}
 		}
@@ -47,11 +39,23 @@ namespace Matrices {
 		/// </summary>
 		/// <param name="n">Количество строк</param>
 		/// <param name="m">Количество столбцов</param>
-		/// <param name="_type">Тип матрицы</param>
 		public Matrix(int n, int m) {
 			rows = n;
 			cols = m;
 			matrix = new int[n, m];
+		}
+
+		public Matrix(int[,] A) {
+			rows = A.GetUpperBound(0) + 1;
+			cols = A.GetUpperBound(1) + 1;
+
+			matrix = new int[rows, cols];
+
+			for(int i = 0; i < rows; i++) {
+				for(int j = 0; j < cols; j++) {
+					matrix[i, j] = A[i, j];
+				}
+			}
 		}
 
 		/// <summary>
@@ -72,10 +76,6 @@ namespace Matrices {
 
 		//Переопределение суммы матриц
 		public static Matrix operator +(Matrix a, Matrix b) {
-			if(a.Cols != b.Cols || a.Rows != b.Rows) {
-				throw new Exception("Incorrect matrix sizes");
-			}
-
 			Matrix res = new Matrix(a.Rows, a.Cols);
 
 			for(int i = 0; i < a.Rows; i++) {
@@ -89,10 +89,6 @@ namespace Matrices {
 
 		//Переопределение разницы матрицы
 		public static Matrix operator -(Matrix a, Matrix b) {
-			if(a.Cols != b.Cols || a.Rows != b.Rows) {
-				throw new Exception("Incorrect matrix sizes");
-			}
-
 			Matrix res = new Matrix(a.Rows, a.Cols);
 
 			for(int i = 0; i < a.Rows; i++) {
@@ -106,10 +102,6 @@ namespace Matrices {
 
 		//Переопределение матричного умножения
 		public static Matrix operator *(Matrix a, Matrix b) {
-			if(a.Cols != b.Rows) {
-				throw new Exception("Incorrect matrix sizes");
-			}
-
 			Matrix res = new Matrix(a.Rows, b.Cols);
 
 			for(int i = 0; i < a.Rows; i++) {
@@ -218,13 +210,13 @@ namespace Matrices {
 			Matrix S7 = B22 - B12;
 			Matrix S8 = S6 - B21;
 
-			Matrix P1 = StrassenMultiply(S2, S6);
-			Matrix P2 = StrassenMultiply(A11, B11);
-			Matrix P3 = StrassenMultiply(A12, B21);
-			Matrix P4 = StrassenMultiply(S3, S7);
-			Matrix P5 = StrassenMultiply(S1, S5);
-			Matrix P6 = StrassenMultiply(S4, B22);
-			Matrix P7 = StrassenMultiply(A22, S8);
+			Matrix P1 = StrassenMultiply64(S2, S6);
+			Matrix P2 = StrassenMultiply64(A11, B11);
+			Matrix P3 = StrassenMultiply64(A12, B21);
+			Matrix P4 = StrassenMultiply64(S3, S7);
+			Matrix P5 = StrassenMultiply64(S1, S5);
+			Matrix P6 = StrassenMultiply64(S4, B22);
+			Matrix P7 = StrassenMultiply64(A22, S8);
 
 			Matrix T1 = P1 + P2;
 			Matrix T2 = T1 + P4;

@@ -6,14 +6,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utility;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace IOModule {
-	enum TimeClass {
-		Trivial = 0,
-		Strassen = 1,
-		Strassen64 = 2
-	}
 
 	class ResultList {
 		private List<Tuple<int, double[]>> times;
@@ -34,17 +30,25 @@ namespace IOModule {
 			}
 		}
 
-		public ResultList() { }
+		public double this[int time] {
+			get {
+				return times[time].Item1;
+			}
+		}
+
+		public ResultList() {
+			times = new List<Tuple<int, double[]>>();
+		}
 
 		private int Compare(Tuple<int, double[]> elem1, Tuple<int, double[]> elem2) {
 			return elem1.Item1.CompareTo(elem2.Item1);
 		}
 
-		public void Add(int n, double time, TimeClass tClass) { 
+		public void Add(int n, double time, Methods tClass) { 
 			int nIndex = times.FindIndex(x => x.Item1 == n);
 
 			if(nIndex == -1) {
-				Tuple<int, double[]> tupleTime = new Tuple<int, double[]>(n, new double[3] { -1, -1, -1});
+				Tuple<int, double[]> tupleTime = new Tuple<int, double[]>(n, new double[5] { -1, -1, -1, -1, -1});
 
 				tupleTime.Item2[(int)tClass] = time;
 
@@ -81,7 +85,7 @@ namespace IOModule {
 			excelApp.Quit();
 		}
 
-		public void WriteResult(ResultList res, int step, int start) {
+		public void WriteResult(ResultList res) {
 			Excel.Workbook workbook = excelApp.Workbooks.Open(resultsStr);
 
 			Excel.Worksheet worksheet = workbook.Worksheets.Add();
@@ -91,13 +95,17 @@ namespace IOModule {
 			worksheet.Cells[1, "B"].Value = "Время тривиального алгоритма, с";
 			worksheet.Cells[1, "C"].Value = "Время алгоритма Винограда-Штрассена, с";
 			worksheet.Cells[1, "D"].Value = "Время алгоритма Винограда-Штрассена 64, с";
+			worksheet.Cells[1, "E"].Value = "Время алгоритма Винограда-Штрассена Native, с";
+			worksheet.Cells[1, "F"].Value = "Время алгоритма Винограда-Штрассена 64 Native, с";
 
 			for(int i = 2; i <= res.Length + 1; i++) {
-				worksheet.Cells[i, "A"].Value = start + (i - 2) * step;
+				worksheet.Cells[i, "A"].Value = res[i - 2];
 
 				double trivTime = res[i - 2, 0];
 				double strassenTime = res[i - 2, 1];
 				double strassen64Time = res[i - 2, 2];
+				double strassenNativeTime = res[i - 2, 3];
+				double strassen64NativeTime = res[i - 2, 4];
 
 				if(trivTime != -1) {
 					worksheet.Cells[i, "B"].Value = trivTime;
@@ -109,6 +117,14 @@ namespace IOModule {
 
 				if(strassen64Time != -1) {
 					worksheet.Cells[i, "D"].Value = strassen64Time;
+				}
+
+				if(strassenNativeTime != -1) {
+					worksheet.Cells[i, "E"].Value = strassenNativeTime;
+				}
+
+				if(strassen64NativeTime != -1) {
+					worksheet.Cells[i, "F"].Value = strassen64NativeTime;
 				}
 			}
 
@@ -132,6 +148,14 @@ namespace IOModule {
 			chart.SeriesCollection().NewSeries();
 			chart.FullSeriesCollection(3).Values = $"{worksheet.Name}!$D$2:$D${1 + res.Length}";
 			chart.FullSeriesCollection(3).Name = worksheet.Cells[1, "D"].Value2;
+
+			chart.SeriesCollection().NewSeries();
+			chart.FullSeriesCollection(4).Values = $"{worksheet.Name}!$E$2:$E${1 + res.Length}";
+			chart.FullSeriesCollection(4).Name = worksheet.Cells[1, "E"].Value2;
+
+			chart.SeriesCollection().NewSeries();
+			chart.FullSeriesCollection(5).Values = $"{worksheet.Name}!$F$2:$F${1 + res.Length}";
+			chart.FullSeriesCollection(5).Name = worksheet.Cells[1, "F"].Value2;
 
 			Excel.Axis xAxis = (Excel.Axis)chart.Axes(Excel.XlAxisType.xlCategory, Excel.XlAxisGroup.xlPrimary);
 			xAxis.CategoryNames = worksheet.get_Range("A2", "A" + (1 + res.Length));

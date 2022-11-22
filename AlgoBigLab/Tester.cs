@@ -1,5 +1,7 @@
 ﻿using Matrices;
 using System.Diagnostics;
+using IOModule;
+using Utility;
 
 namespace AlgoBigLab {
     /// <summary>
@@ -8,12 +10,6 @@ namespace AlgoBigLab {
     static internal class Tester {
         const int rndAbsMax = 1000;
         static private StreamReader? inputStream;
-
-        public enum Methods {
-            Trivial,
-            Strassen,
-            StrassenOptimized
-        }
 
         /// <summary>
         /// Генерация матрицы со случайными значениями.
@@ -92,84 +88,83 @@ namespace AlgoBigLab {
             Stopwatch stopwatch = new Stopwatch();
 
             switch (method) {
-                case Methods.Trivial:
+                case Methods.Trivial: {
                     stopwatch.Start();
                     _ = A * B;
                     stopwatch.Stop();
-                    break;
-                case Methods.Strassen:
+                }; break;
+
+                case Methods.Strassen: {
                     stopwatch.Start();
                     _ = Matrix.Strassen(A, B, false);
                     stopwatch.Stop();
-                    break;
-                case Methods.StrassenOptimized:
+			    }; break;
+
+                case Methods.StrassenOptimized:{ 
                     stopwatch.Start();
                     _ = Matrix.Strassen(A, B, true);
                     stopwatch.Stop();
-                    break;
-            }
+		        }; break;
+
+				case Methods.StrassenNative: {
+					stopwatch.Start();
+                    _ = NativeStrassen.NativeStrassenSolver(A.matrix, B.matrix, A.Rows, false);
+					stopwatch.Stop();
+				}; break;
+
+				case Methods.StrassenOptimizedNative: {
+					stopwatch.Start();
+					_ = NativeStrassen.NativeStrassenSolver(A.matrix, B.matrix, A.Rows, true);
+					stopwatch.Stop();
+				}; break;
+			}
 
             return stopwatch.ElapsedMilliseconds;
         }
-        
-        /// <summary>
-        /// Поиск максимальнойго объёма данных, при которых время выполнения не превышает
-        /// (или превышает незначительно) две минуты.
-        /// </summary>
-        /// <param name="method">Меотод enum Tester.Methods</param>
-        /// <param name="step">Шаг.</param>
-        /// <param name="startV">Начальный объём.</param>
-        /// <returns></returns>
-        static public int FindVMax(Methods method, int step = 1, int startV = 4) {
+
+		/// <summary>
+		/// Поиск максимальнойго объёма данных, при которых время выполнения не превышает
+		/// (или превышает незначительно) две минуты.
+		/// </summary>
+		/// <param name="method">Меотод enum Tester.Methods</param>
+		/// <param name="maxTime">Максимальное время выполнения, мс</param>
+		/// <param name="step">Шаг.</param>
+		/// <param name="startV">Начальный объём.</param>
+		/// <returns></returns>
+		static public void TestSeries(int startV, int step, int maxTime, int seriesCount, IOModule.IOModule io) {
             Matrix A = null;
             Matrix B = null;
+            ResultList resList = new ResultList();
+            string[] methodLabels = {
+                "Trivial",
+                "Strassen",
+                "Strassen 64",
+				"Strassen Native",
+				"Strassen 64 Native"
+			};
 
-            for (int n = startV; ; n += step) {
-                GenerateTest(n, ref A, ref B);
-                long time = OneTest(A, B, method);
-                Console.WriteLine(n.ToString() + ": " + time.ToString());
-                if (time > 120000) {
-                    return n;
+            for(int method = 0; method < 5; method++) {
+                for(int n = startV; ; n += step) {
+                    double time = 0;
+                    GenerateTest(n, ref A, ref B);
+
+                    for(int i = 0; i < seriesCount; i++) {
+                        time += OneTest(A, B, (Methods)method);
+                    }
+
+                    time /= seriesCount;
+
+                    Console.WriteLine($"{methodLabels[method]} N = {n} : {time} ms");
+
+                    resList.Add(n, time / 1000, (Methods)method);
+
+                    if(time > maxTime) {
+                        break;
+                    }
                 }
             }
-        }
 
-        /// <summary>
-        /// Вычисление среднего времени работы метода при заданном объёме данных.
-        /// </summary>
-        /// <param name="n">Размерность матриц.</param>
-        /// <param name="tests">Количество тестов.</param>
-        /// <param name="method">Меотод enum Tester.Methods</param>
-        /// <returns></returns>
-        static public long AverageTime(int n, int tests, Methods method) {
-            Matrix A = null;
-            Matrix B = null;
-            long time = 0;
-            for (int j = 0; j < tests; j++) {
-                GenerateTest(n, ref A, ref B);
-                time += OneTest(A, B, method);
-            }
-            time /= tests;
-            return time;
-        }
-
-        /// <summary>
-        /// Серия тестов для разных размерностей.
-        /// </summary>
-        /// <param name="V">Массив размерностей.</param>
-        /// <param name="method">Меотод enum Tester.Methods</param>
-        /// <param name="tests">Количество тестов.</param>
-        /// <returns></returns>
-        static public Dictionary<int, long> SerialExperiments(int[] V, Methods method, int tests) {
-            
-            Dictionary<int, long> times = new Dictionary<int, long>();
-            for (int i = 0; i < V.Length; i++) {
-                long time = AverageTime(V[i], tests, method);
-                times.Add(V[i], time);
-            }
-            return times;
-        }
-
-
+            io.WriteResult(resList);
+		}
     }
 }
