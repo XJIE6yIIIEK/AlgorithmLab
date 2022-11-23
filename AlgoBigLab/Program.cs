@@ -12,7 +12,7 @@ class Program {
         Tester.TestSeries(50, 50, maxTime, 3, io);
     }
 
-    private static void SolveTestsFromDirectory() {
+    private static int ChooseMethod() {
         Console.Write(@"Выберите метод для тестирования:
 1) Тривиальный
 2) Штрассена
@@ -20,7 +20,11 @@ class Program {
 4) Штрассена - без создания классов
 5) Штрассена - оптимизированный - без создания классов
 >>>");
-        int methodAnswer = Convert.ToInt32(Console.ReadLine()) - 1;
+        return Convert.ToInt32(Console.ReadLine()) - 1;
+    }
+
+    private static void SolveTestsFromDirectory() {
+        int methodAnswer = ChooseMethod();
         if (methodAnswer < 1 || methodAnswer > 5) {
             Console.WriteLine("Ошибка: неизвестный метод.");
             return;
@@ -48,8 +52,27 @@ class Program {
         }
     }
 
+    private static void SolveAutoGewneratedTests() {
+        int methodAnswer = ChooseMethod();
+        if (methodAnswer < 1 || methodAnswer > 5) {
+            Console.WriteLine("Ошибка: неизвестный метод.");
+            return;
+        }
+        Methods method = (Methods)methodAnswer;
+
+        Console.Write("Введите n: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+        Matrix A = null;
+        Matrix B = null;
+        Tester.GenerateTest(n, ref A, ref B);
+        long testResult = Tester.OneTest(A, B, method);
+        Console.WriteLine("Матрица A:\n"+A.ToString());
+        Console.WriteLine("Матрица B:\n" + B.ToString());
+        Console.WriteLine("Время: "+testResult.ToString()+"ms");
+    }
+
 	public static void Main(string[] args) {
-        Console.Write("1) Поиск максимального объёма данных\n2) Решение тестов\n>>>");
+        Console.Write("1) Поиск максимального объёма данных\n2) Решение тестов из дериктории\n3) Решение автоматически сгенерированных тестов\n>>>");
         int way = Convert.ToInt32(Console.ReadLine());
         switch (way) {
             case 1:
@@ -57,6 +80,9 @@ class Program {
                 break;
             case 2:
                 SolveTestsFromDirectory();
+                break;
+            case 3:
+                SolveAutoGewneratedTests();
                 break;
             default:
                 Console.WriteLine("Ошибка: неизвестная команда.");
