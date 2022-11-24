@@ -25,7 +25,7 @@ class Program {
 
     private static void SolveTestsFromDirectory() {
         int methodAnswer = ChooseMethod();
-        if (methodAnswer < 1 || methodAnswer > 5) {
+        if (methodAnswer < 0 || methodAnswer > 4) {
             Console.WriteLine("Ошибка: неизвестный метод.");
             return;
         }
@@ -54,7 +54,7 @@ class Program {
 
     private static void SolveAutoGewneratedTests() {
         int methodAnswer = ChooseMethod();
-        if (methodAnswer < 1 || methodAnswer > 5) {
+        if (methodAnswer < 0 || methodAnswer > 4) {
             Console.WriteLine("Ошибка: неизвестный метод.");
             return;
         }
